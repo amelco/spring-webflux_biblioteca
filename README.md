@@ -25,8 +25,8 @@ Para construirmos a aplicação, necessitaremos das seguintes *classes* e *inter
 - **Livro**: Uma *classe* que representará o livro em nosso serviço.
 - **LivroRepository**: Uma *interface* entre o Spring e o MongoDB para enviar e receber dados do banco.
 - **LivroService**: Uma *interface* que definirá quais as "regras de negócio" que deverão ser implementadas (o [*CRUD*](https://www.codecademy.com/articles/what-is-crud), basicamente).
-- **LivroServiceImpl**: Uma *classe* que implementa a interface **LivroService**. A *interface* de serviço (no nosso caso **LivroService**) não é necessária mas é recomendado se criar uma camada entre o controlador (**Controller**) e o banco de dados. Assim, pode-se mudar para um banco de dados relacional, por exemplo, sem causar impacto nos controllers.
-- **LivroController**: Uma classe que irá receber as *requisições* e retornar as *respostas* reativas ([Monos]() e [Fluxes]()).
+- **LivroServiceImpl**: Uma *classe* que implementa a *interface* **LivroService**. A *interface* de serviço (no nosso caso **LivroService**) não é necessária mas é recomendado se criar uma camada entre o controlador (**Controller**) e o banco de dados. Assim, pode-se mudar para um banco de dados relacional, por exemplo, sem causar impacto nos controllers.
+- **LivroController**: Uma*classe*que irá receber as *requisições* e retornar as *respostas* reativas ([Monos]() e [Fluxes]()).
 
 ---
 
@@ -51,7 +51,7 @@ A estrutura inicial do seu projeto deverá ser bem semelhante a mostrada na figu
 
 ![estrutura de diretórios](/images/tree.png)
 
-O código fonte da aplicação ficará no diretório `/src/main/java`, onde se encontra o código padrão para inicialização da aplicação em `BibliotecaApplication.java`. Esse arquivo é a classe principal da aplicação, onde está o método `main()`.
+O código fonte da aplicação ficará no diretório `/src/main/java`, onde se encontra o código padrão para inicialização da aplicação em `BibliotecaApplication.java`. Esse arquivo é a*classe*principal da aplicação, onde está o método `main()`.
 
 ```java
 package com.webflux.biblioteca;
@@ -71,7 +71,7 @@ public class BibliotecaApplication {
 
 }
 ```
-A anotação `@SpringBootApplication` é necessária e diz, basicamente, que essa classe é uma aplicação Spring Boot.
+A anotação `@SpringBootApplication` é necessária e diz, basicamente, que essa*classe*é uma aplicação Spring Boot.
 
 ---
 ### Hello World
@@ -142,7 +142,7 @@ Isso irá dizer à aplicação para procurar o MongoDB no endereço especificado
 # 3 Implementando o código
 
 ## 3.1 Classe **Livro**
-Vamos começar a implementação do código da aplicação, começando criando a classe **Livro**, no pacote `com.webflux.biblioteca.model`.
+Vamos começar a implementação do código da aplicação, começando criando a*classe***Livro**, no pacote `com.webflux.biblioteca.model`.
 
 ```java
 package com.webflux.biblioteca.model;
@@ -168,7 +168,7 @@ public class Livro {
 }
 ```
 ### Explicando o código
-A classe **Livro** contém apenas 3 atributos: id, titulo e autor. A anotação **@Document** define que é um documento MongoDB.  
+A*classe***Livro** contém apenas 3 atributos: id, titulo e autor. A anotação **@Document** define que é um documento MongoDB.  
 As anotações **@Data**, **@NoArgsConstructor** e **@AllArgsConstructor** pertencem à biblioteca *Lombok*.
 
 **@Data**: Gera *getters* and *setters* para todos os campos. Gera construtor e funciona melhor com **@NoArgsConstructor** e **@AllArgsConstructor**.
@@ -176,7 +176,7 @@ As anotações **@Data**, **@NoArgsConstructor** e **@AllArgsConstructor** perte
 A biblioteca *Lombok* não é necessária. Os construtores, *getters* e *setters* podem todos ser feitos à mão. Utilizamos o *Lombok* por conveniência.
 
 ## 3.2 Interface **LivroRepository**
- Agora criamos a interface **LivroRepository**, no pacote `com.webflux.biblioteca.repository`.
+ Agora criamos a *interface* **LivroRepository**, no pacote `com.webflux.biblioteca.repository`.
 ```java
 package com.webflux.biblioteca.repository;
 
@@ -187,13 +187,16 @@ public interface LivroRepository
 						extends ReactiveMongoRepository<Livro, String>{ }
 ```
 ### Explicando o código
-**LivroRepository** é uma interface que herda de **ReactiveMongoRepository** vários métodos reativos como findAll(), findById(), deleteById() e save();
+**LivroRepository** é uma *interface* que herda de **ReactiveMongoRepository** vários métodos reativos como findAll(), findById(), deleteById() e save();
 
-**ReacitveMongoRepository** tem como argumentos a classe que ela irá retornar e o tipo da variável id, que no nosso caso é **Livro** e `String` respectivamente.
+**ReacitveMongoRepository** tem como argumentos a*classe*que ela irá retornar e o tipo da variável id, que no nosso caso é **Livro** e `String` respectivamente.
 Assim, os métodos retornam [**Mono**s]() ou [**Flux**es]().
 
-## 3.3 Interface **BookService**
-Criamos um pacote `com.webflux.biblioteca.service` e, dentro dele, a interface **LivroService**.
+## 3.3 O serviço
+As duas próximas entidades podem ser agrupadas em um único pacote chamado 'com.webflux.biblioteca.service'
+
+### 3.3.1 Interface **BookService**
+Criamos um pacote `com.webflux.biblioteca.service` e, dentro dele, a  *interface*  **LivroService**.
 
 ```java
 package com.webflux.biblioteca.service;
@@ -215,4 +218,7 @@ public interface LivroService {
 
 }
 ```
+### 3.3.2 Classe **BookServiceImpl**
+
 ### Explicando o código
+Esta *interface* possui os métodos 
